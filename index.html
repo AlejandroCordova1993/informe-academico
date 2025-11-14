@@ -393,6 +393,17 @@
             color: white;
         }
 
+        .nav-btn.activity {
+            background: var(--color-warning);
+            color: white;
+            font-weight: 700;
+        }
+
+        .nav-btn.activity:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
         /* Container */
         .container {
             max-width: 1100px;
@@ -1043,13 +1054,13 @@
     <nav class="nav">
         <button class="nav-btn" onclick="scrollToSection('section1')">¿Qué es?</button>
         <button class="nav-btn" onclick="scrollToSection('section2')">Tipos</button>
-        <button class="nav-btn" onclick="scrollToSection('activityTipos')">Actividad</button>
+        <button class="nav-btn activity" onclick="scrollToSection('activityTipos')">📝 Actividad</button>
         <button class="nav-btn" onclick="scrollToSection('section3')">Objetividad</button>
-        <button class="nav-btn" onclick="scrollToSection('quiz1')">Quiz</button>
+        <button class="nav-btn activity" onclick="scrollToSection('quiz1')">📝 Quiz</button>
         <button class="nav-btn" onclick="scrollToSection('section4')">Estructura</button>
-        <button class="nav-btn" onclick="scrollToSection('conceptMap')">Mapa</button>
+        <button class="nav-btn activity" onclick="scrollToSection('conceptMap')">📝 Mapa</button>
         <button class="nav-btn" onclick="scrollToSection('section5')">Géneros</button>
-        <button class="nav-btn" onclick="scrollToSection('redaccionActivity')">Redacción</button>
+        <button class="nav-btn activity" onclick="scrollToSection('redaccionActivity')">📝 Redacción</button>
         <button class="nav-btn" onclick="scrollToSection('checklist')">Checklist</button>
     </nav>
 

@@ -1041,16 +1041,16 @@
 
     <!-- Navigation -->
     <nav class="nav">
-        <button class="nav-btn" onclick="scrollTo('section1')">¿Qué es?</button>
-        <button class="nav-btn" onclick="scrollTo('section2')">Tipos</button>
-        <button class="nav-btn" onclick="scrollTo('activityTipos')">Actividad</button>
-        <button class="nav-btn" onclick="scrollTo('section3')">Objetividad</button>
-        <button class="nav-btn" onclick="scrollTo('quiz1')">Quiz</button>
-        <button class="nav-btn" onclick="scrollTo('section4')">Estructura</button>
-        <button class="nav-btn" onclick="scrollTo('conceptMap')">Mapa</button>
-        <button class="nav-btn" onclick="scrollTo('section5')">Géneros</button>
-        <button class="nav-btn" onclick="scrollTo('redaccionActivity')">Redacción</button>
-        <button class="nav-btn" onclick="scrollTo('checklist')">Checklist</button>
+        <button class="nav-btn" onclick="scrollToSection('section1')">¿Qué es?</button>
+        <button class="nav-btn" onclick="scrollToSection('section2')">Tipos</button>
+        <button class="nav-btn" onclick="scrollToSection('activityTipos')">Actividad</button>
+        <button class="nav-btn" onclick="scrollToSection('section3')">Objetividad</button>
+        <button class="nav-btn" onclick="scrollToSection('quiz1')">Quiz</button>
+        <button class="nav-btn" onclick="scrollToSection('section4')">Estructura</button>
+        <button class="nav-btn" onclick="scrollToSection('conceptMap')">Mapa</button>
+        <button class="nav-btn" onclick="scrollToSection('section5')">Géneros</button>
+        <button class="nav-btn" onclick="scrollToSection('redaccionActivity')">Redacción</button>
+        <button class="nav-btn" onclick="scrollToSection('checklist')">Checklist</button>
     </nav>
 
     <div class="container">
@@ -1798,8 +1798,9 @@ Actividad Redacción: ${studentData.scores.redaccion.correct}/${studentData.scor
         window.addEventListener('load', checkVisibility);
 
         // Smooth scroll
-        function scrollTo(id) {
+        function scrollToSection(id) {
             const element = document.getElementById(id);
+            if (!element) return;
             const navHeight = 80;
             const targetPosition = element.offsetTop - navHeight;
             window.scrollTo({ top: targetPosition, behavior: 'smooth' });

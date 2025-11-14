@@ -1129,6 +1129,9 @@
                 <button class="btn" onclick="verifyTiposQuiz()" id="verifyTiposBtn">
                     🔍 Verificar Respuestas del Quiz
                 </button>
+                <button class="btn btn-secondary" onclick="retryTiposQuiz()" id="retryTiposBtn" style="display: none; margin-left: 12px;">
+                    🔄 Reintentar Quiz
+                </button>
             </div>
 
             <div id="tiposQuizResult" style="display: none; margin-top: 24px;"></div>
@@ -1207,6 +1210,9 @@
             <div style="text-align: center; margin-top: 24px;">
                 <button class="btn" onclick="verifyQuiz1()" id="verifyQuiz1Btn">
                     🔍 Verificar Respuestas del Quiz
+                </button>
+                <button class="btn btn-secondary" onclick="retryQuiz1()" id="retryQuiz1Btn" style="display: none; margin-left: 12px;">
+                    🔄 Reintentar Quiz
                 </button>
             </div>
 
@@ -1315,9 +1321,12 @@
                 </div>
             </div>
 
-            <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;">
-                <button class="btn" onclick="checkConceptMap()">Verificar Respuestas</button>
+            <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn" onclick="checkConceptMap()" id="checkMapBtn">Verificar Respuestas</button>
                 <button class="btn btn-secondary" onclick="resetConceptMap()">Reiniciar</button>
+                <button class="btn" onclick="retryConceptMap()" id="retryMapBtn" style="display: none; background: var(--color-warning);">
+                    🔄 Reintentar Mapa
+                </button>
             </div>
 
             <div id="conceptMapResult" style="display: none; margin-top: 24px;"></div>
@@ -1441,6 +1450,9 @@
             <div style="text-align: center; margin-top: 24px;">
                 <button class="btn" onclick="verifyRedaccion()" id="verifyRedaccionBtn">
                     🔍 Verificar Mi Redacción
+                </button>
+                <button class="btn btn-secondary" onclick="retryRedaccion()" id="retryRedaccionBtn" style="display: none; margin-left: 12px;">
+                    🔄 Reintentar Redacción
                 </button>
             </div>
 
@@ -1989,8 +2001,26 @@ Actividad Redacción: ${studentData.scores.redaccion.correct}/${studentData.scor
             `;
             resultDiv.style.display = 'block';
             
-            document.getElementById('verifyTiposBtn').disabled = true;
-            document.getElementById('verifyTiposBtn').textContent = '✅ Verificado';
+            document.getElementById('verifyTiposBtn').style.display = 'none';
+            document.getElementById('retryTiposBtn').style.display = 'inline-block';
+        }
+
+        function retryTiposQuiz() {
+            // Reset answers
+            tiposQuizAnswers = {};
+            
+            // Clear and reinitialize quiz
+            const container = document.getElementById('tiposQuizContainer');
+            container.innerHTML = '';
+            initTiposQuiz();
+            
+            // Hide result and retry button
+            document.getElementById('tiposQuizResult').style.display = 'none';
+            document.getElementById('retryTiposBtn').style.display = 'none';
+            document.getElementById('verifyTiposBtn').style.display = 'inline-block';
+            
+            // Scroll to quiz
+            document.getElementById('activityTipos').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         let quiz1Answers = {};
@@ -2063,8 +2093,26 @@ Actividad Redacción: ${studentData.scores.redaccion.correct}/${studentData.scor
             `;
             resultDiv.style.display = 'block';
             
-            document.getElementById('verifyQuiz1Btn').disabled = true;
-            document.getElementById('verifyQuiz1Btn').textContent = '✅ Verificado';
+            document.getElementById('verifyQuiz1Btn').style.display = 'none';
+            document.getElementById('retryQuiz1Btn').style.display = 'inline-block';
+        }
+
+        function retryQuiz1() {
+            // Reset answers
+            quiz1Answers = {};
+            
+            // Clear and reinitialize quiz
+            const container = document.getElementById('quiz1Container');
+            container.innerHTML = '';
+            initQuiz1();
+            
+            // Hide result and retry button
+            document.getElementById('quiz1Result').style.display = 'none';
+            document.getElementById('retryQuiz1Btn').style.display = 'none';
+            document.getElementById('verifyQuiz1Btn').style.display = 'inline-block';
+            
+            // Scroll to quiz
+            document.getElementById('quiz1').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Concept Map
@@ -2179,6 +2227,22 @@ Actividad Redacción: ${studentData.scores.redaccion.correct}/${studentData.scor
             // Update score (only count if not already counted)
             studentData.scores.conceptMap.correct = correct;
             updateScore();
+            
+            document.getElementById('checkMapBtn').style.display = 'none';
+            document.getElementById('retryMapBtn').style.display = 'inline-block';
+        }
+
+        function retryConceptMap() {
+            // Reset the map
+            resetConceptMap();
+            
+            // Hide result and retry button
+            document.getElementById('conceptMapResult').style.display = 'none';
+            document.getElementById('retryMapBtn').style.display = 'none';
+            document.getElementById('checkMapBtn').style.display = 'inline-block';
+            
+            // Scroll to top of activity
+            document.getElementById('conceptMap').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function resetConceptMap() {
@@ -2355,7 +2419,26 @@ Actividad Redacción: ${studentData.scores.redaccion.correct}/${studentData.scor
             `;
             
             resultDiv.style.display = 'block';
+            document.getElementById('verifyRedaccionBtn').style.display = 'none';
+            document.getElementById('retryRedaccionBtn').style.display = 'inline-block';
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function retryRedaccion() {
+            // Clear the textarea
+            document.getElementById('redaccionText').value = '';
+            document.getElementById('charCount').textContent = '0';
+            
+            // Hide result and retry button, show verify button
+            document.getElementById('redaccionResult').style.display = 'none';
+            document.getElementById('retryRedaccionBtn').style.display = 'none';
+            const verifyBtn = document.getElementById('verifyRedaccionBtn');
+            verifyBtn.style.display = 'inline-block';
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = '🔍 Verificar Mi Redacción';
+            
+            // Scroll to activity
+            document.getElementById('redaccionActivity').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Initialize all
